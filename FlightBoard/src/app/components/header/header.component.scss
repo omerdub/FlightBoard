@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    gap: 200px;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    background-color: themed("bg");
+    color: themed("textColor");
+    z-index: 99;
+    box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.53);
+    -webkit-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.53);
+    -moz-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.53);
+
+    .title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .vert-move {
+            margin-top: 10px;
+            -webkit-animation: mover 1s infinite alternate;
+            animation: mover 1s infinite alternate;
+        }
+
+        .vert-move {
+            -webkit-animation: mover 1s infinite alternate;
+            animation: mover 1s infinite alternate;
+        }
+
+        @-webkit-keyframes mover {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes mover {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+    }
+
+    .darkmodetoggler {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}

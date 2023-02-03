@@ -1,0 +1,10 @@
+<div id [ngClass]="{'background-secondary': true, 'container': true}">
+    <div class="title">
+        <h1>Flight Board</h1>
+        <app-airplane-icon class="vert-move"></app-airplane-icon>
+    </div>
+    <div class="darkmodetoggler">
+        <p> Dark mode?</p>
+        <app-toggle [toggleOn]="theme === 'dark' ? true : false" (toggledTo)="switchTheme()"></app-toggle>
+    </div>
+</div>
