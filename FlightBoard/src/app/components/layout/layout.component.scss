@@ -1,5 +1,43 @@
-.container {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    min-height: 99vh;
-    width: 99vw;
+.wrap {
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    div {
+        height: 100%;
+    }
+
+    .content {
+        gap: 8px;
+        display: flex;
+        height: calc(99vh - 100px);
+        justify-content: center;
+        align-items: flex-start;
+        overflow: hidden;
+
+        .table {
+            min-width: 1050px;
+        }
+
+        .container {
+            height: calc(100% - 80px);
+            display: flex;
+
+            div {
+                margin: 20px 20px;
+                display: flex;
+                height: auto;
+                width: auto;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.35);
+                -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.35);
+                -moz-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.35);
+
+            }
+        }
+
+    }
+
 }

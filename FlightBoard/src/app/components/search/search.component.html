@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="filters">
+        <div class="range">
+            <h3>Price Range</h3>
+            <div>
+                <input [(ngModel)]="minPrice" (input)="onFilterChange()" type="number" placeholder="min" /> -
+                <input [(ngModel)]="maxPrice" (input)="onFilterChange()" type="number" placeholder="max" />
+            </div>
+        </div>
+        <div class="airlines">
+            <h3>Airlines</h3>
+            <div *ngFor="let airline of airlines">
+                <input [id]="airline.value" (change)="onFilterChange()" [(ngModel)]="airline.isChecked"
+                    type="checkbox" />
+                <label [for]="airline.value">{{ airline.value }}</label>
+            </div>
+        </div>
+        <div class="stops">
+            <h3>Stops</h3>
+            <div *ngFor="let stop of stops">
+                <input [id]="stop.value" [(ngModel)]="stop.isChecked" (change)="onFilterChange()" type="checkbox" />
+                <label [for]="stop.value">{{stop.value}}</label>
+            </div>
+        </div>
+    </div>
+    <h4>Flights found: {{tripsToShow.length}}</h4>
+</div>

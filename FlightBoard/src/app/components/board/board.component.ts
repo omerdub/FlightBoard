@@ -1,9 +1,10 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Table } from 'src/models/app.models/table.model';
 import { Leg } from 'src/models/data.models/leg.model';
 import { Trip } from 'src/models/data.models/trip.model';
-import { ViewChild } from '@angular/core';
-import { ModalComponent } from '../modal/modal.component';
+import { ModalTableService } from 'src/services/modalTable.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { StoreService } from 'src/services/store.service';
 
 
 @Component({
@@ -12,29 +13,29 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./board.component.scss']
 })
 
-export class BoardComponent {
+export class BoardComponent implements OnInit {
 
-  @Input() trips: Trip[];
+  trips: Trip[];
   showTrip: boolean[] = [];
   dataTable: Table;
   showModal: boolean = false;
   modalContent: any;
 
-  @ViewChild(ModalComponent) modal: ModalComponent;
+  constructor(private modalService: ModalTableService, private sanitizer: DomSanitizer, private state: StoreService) { }
 
+  ngOnInit(): void {
 
+    this.state.getTripsToShow().subscribe(trips => {
+      this.dataTable = this.prepareData(trips);
+    })
+  }
 
   closeModal(): void {
     this.showModal = true;
   }
 
-  ngOnChanges() {
-    this.dataTable = this.prepareData();
-  }
-
   clickOnFlight(rowData) {
-    this.showModal = !this.showModal;
-    this.modalContent = `<app-table [table]="prepareModalData(rowData.legs)"></app-table>`
+    rowData.ModalService.open(rowData.ModalDataToShow);
   }
 
   toggleShow(): void {
@@ -50,8 +51,8 @@ export class BoardComponent {
 
     legs.forEach(leg => {
       table.data.push({
-        Departure: `${leg.departurePoint.city} ${leg.departurePoint.dateTime}`,
-        Arrival: `${leg.arrivalPoint.city} ${leg.arrivalPoint.dateTime}`,
+        Departure: `${leg.departurePoint.city} ${new Date(leg.departurePoint.dateTime).toLocaleDateString()}`,
+        Arrival: `${leg.arrivalPoint.city} ${new Date(leg.arrivalPoint.dateTime).toLocaleDateString()}`,
         Airline: `${leg.airlineName}`,
         Flight: `${leg.flightNumber}`,
       });
@@ -59,21 +60,23 @@ export class BoardComponent {
     return table;
   }
 
-  prepareData(): Table {
+  prepareData(trips: Trip[]): Table {
     let table: Table = { columns: [], data: [] };
     table.columns.push("Departure");
     table.columns.push("Arrival");
     table.columns.push("Airline");
     table.columns.push("Price");
-    if (!this.trips) return table;
-    this.trips.forEach(trip => {
+    if (!trips) return table;
+    let i = 0;
+    trips.forEach(trip => {
       trip.segments.forEach(segment => {
         table.data.push({
-          Departure: `${segment.legs[0].departurePoint.city} ${segment.legs[0].departurePoint.dateTime}`,
-          Arrival: `${segment.legs[segment.legs.length - 1].arrivalPoint.city} ${segment.legs[segment.legs.length - 1].arrivalPoint.dateTime}`,
+          Departure: `${segment.legs[0].departurePoint.city} ${new Date(segment.legs[0].departurePoint.dateTime).toLocaleDateString()}`,
+          Arrival: `${segment.legs[segment.legs.length - 1].arrivalPoint.city} ${new Date(segment.legs[segment.legs.length - 1].arrivalPoint.dateTime).toLocaleDateString()}`,
           Airline: `${segment.legs[0].airlineName}`,
           Price: `${trip.currencySymbol}${trip.averagePrice}`,
-          Legs: segment.legs,
+          ModalService: this.modalService,
+          ModalDataToShow: this.prepareModalData(segment.legs),
         });
       });
     });

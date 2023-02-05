@@ -19,14 +19,20 @@ namespace FlightBoardAPI.DAL.Data
 
         public async Task<IEnumerable<Trip>> GetData()
         {
-            if (string.IsNullOrEmpty(_settings.FilePath))
+            if (_settings.FilePaths.Length == 0)
             {
                 throw new Exception("File path is not specified in the settings.");
             }
 
             try
             {
-                var data = await _jsonService.Deserialize<IEnumerable<Trip>>(_settings.FilePath);
+                List<Trip> data = new List<Trip>();
+                foreach (var path in _settings.FilePaths)
+                {
+                    var trips = await _jsonService.Deserialize<IEnumerable<Trip>>(path.FilePath);
+                    data.AddRange(trips);
+                }
+                //var data = await _jsonService.Deserialize<IEnumerable<Trip>>(_settings.FilePaths);
                 return data;
             }
             catch (Exception ex)

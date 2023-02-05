@@ -18,13 +18,24 @@ namespace FlightBoardAPI.DAL.Repositories
             var dataToReturn = new List<TripViewModel>();
             foreach (var trip in list)
             {
+                var segments = new List<SegmentViewModel>();
+
+                foreach(var segment in trip.Segments)
+                {
+                    segments.Add(new SegmentViewModel()
+                    {
+                        Legs = segment.Legs,
+                        SegmentDuration = segment.SegmentDuration,
+                        ValidatingCarrier = segment.ValidatingCarrier,
+                    });
+                }
                 dataToReturn.Add(new TripViewModel
                 {
                     ID = trip.ID,
-                    Segments = trip.Segments,
+                    Segments = segments,
                     AveragePrice = trip.AveragePrice,
                     CurrencySymbol = trip.CurrencySymbol,
-                });
+                }); ;
             }
 
             return dataToReturn;

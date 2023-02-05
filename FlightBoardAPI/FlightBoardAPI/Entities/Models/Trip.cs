@@ -1,4 +1,6 @@
-﻿namespace FlightBoardAPI.Entities.Models
+﻿using Newtonsoft.Json;
+
+namespace FlightBoardAPI.Entities.Models
 {
     public class Trip
     {
@@ -14,6 +16,7 @@
         public BaggageInfo BaggageInfo { get; set; }
         public string ProviderCode { get; set; }
         public string DeepLinkRef { get; set; }
-        public DiscountInfo DiscountInfo { get; set; }
+
+        public DiscountInfo[] DiscountInfo { get; set; }
     }
 }

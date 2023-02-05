@@ -1,0 +1,10 @@
+<div class="sort">
+    <label for="sortBy">Sort by:</label>
+    <select (change)="sortedData()" id="sortBy" [(ngModel)]="sortBy">
+        <option value="Price">Price</option>
+        <option selected="true" value="Airline">Airline</option>
+    </select>
+
+    <label for="ascending">Ascending</label>
+    <input (change)="sortedData()" id="ascending" type="checkbox" [(ngModel)]="ascending" />
+</div>

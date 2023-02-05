@@ -31,7 +31,7 @@ namespace FlightBoardAPI
                 });
             });
 
-            services.Configure<JsonFileSettings>(_configuration.GetSection("JsonFile"));
+            services.Configure<JsonFileSettings>(_configuration.GetSection("JsonSettings"));
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
             services.AddScoped<IFlightBoardDBContext, FlightBoardDBContext>();
             services.AddTransient<IFlightsRepository, FlightsRepository>();

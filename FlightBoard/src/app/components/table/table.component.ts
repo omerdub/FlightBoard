@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Table } from 'src/models/app.models/table.model';
 
 @Component({
@@ -6,12 +6,9 @@ import { Table } from 'src/models/app.models/table.model';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
+  ngOnInit(): void {
+  }
   @Input() table: Table = { columns: [], data: [] };
   @Input() onClick?: (data: any) => void;
-
-
-  ngOnChanges(changes) {
-    console.log(changes)
-  }
 }

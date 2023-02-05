@@ -1,7 +1,4 @@
 <div [ngClass]="{ 'light-theme': theme === 'light', 'dark-theme': theme === 'dark' }">
-    <div class="background">
-        <app-header [theme]="theme" [switchTheme]="switchTheme.bind(this)"></app-header>
-        <app-board [trips]="trips"></app-board>
-        <ng-content></ng-content>
-    </div>
+    <app-header [theme]="theme" [switchTheme]="switchTheme.bind(this)"></app-header>
+    <ng-content></ng-content>
 </div>

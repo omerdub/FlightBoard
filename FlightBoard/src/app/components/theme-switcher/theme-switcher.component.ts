@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'src/services/localStorage.service';
-import { TripService } from 'src/services/api.service';
-import { Trip } from 'src/models/data.models/trip.model';
 
 @Component({
   selector: 'app-theme-switcher',
@@ -10,18 +8,13 @@ import { Trip } from 'src/models/data.models/trip.model';
 })
 export class ThemeSwitcherComponent implements OnInit {
   theme: string;
-  trips: Trip[];
 
   constructor(
     private localStorageService: LocalStorageService,
-    private tripService: TripService
   ) { }
 
   ngOnInit() {
     this.theme = this.localStorageService.getData('theme') || 'light';
-    this.tripService.getTrips().subscribe(res => {
-      this.trips = res.trips;
-    });
   }
 
   switchTheme() {

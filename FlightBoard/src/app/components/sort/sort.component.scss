@@ -1,0 +1,13 @@
+.sort {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    gap: 10px;
+
+    select {
+        border-radius: 5px;
+        height: 30px;
+        width: 90px;
+    }
+}

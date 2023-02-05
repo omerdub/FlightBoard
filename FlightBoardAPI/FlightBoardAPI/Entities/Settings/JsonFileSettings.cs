@@ -2,6 +2,6 @@
 {
     public class JsonFileSettings
     {
-        public string FilePath { get; set; }
+        public PathSettings[] FilePaths { get; set; }
     }
 }

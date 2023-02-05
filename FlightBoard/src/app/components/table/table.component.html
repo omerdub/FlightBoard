@@ -1,16 +1,18 @@
-<table *ngIf="table">
-    <thead>
-        <tr>
-            <th *ngFor="let column of table.columns">
-                {{ column }}
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of table.data">
-            <td *ngFor="let column of table.columns" (click)='onClick(data)'>
-                {{ data[column] }}
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table *ngIf="table">
+        <thead>
+            <tr>
+                <th *ngFor="let column of table.columns" class="background-secondary">
+                    {{ column }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of table.data">
+                <td *ngFor="let column of table.columns" [class.clickable]="onClick" (click)='onClick(data)'>
+                    {{ data[column] }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

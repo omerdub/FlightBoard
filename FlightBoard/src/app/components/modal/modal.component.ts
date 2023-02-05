@@ -1,21 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ModalTableService } from 'src/services/modalTable.service';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent {
-  @Input() modalContent: any;
+export class ModalComponent implements OnInit {
 
-  @Input() showModal: boolean = false;
+  display$: Observable<{ status: 'open' | 'close', content: any }>;
 
-  pop(content: any): void {
-    this.showModal = true;
-    this.modalContent = content;
+  constructor(
+    private modalService: ModalTableService
+  ) { }
+
+  ngOnInit() {
+    this.display$ = this.modalService.watch();
   }
 
-  closeModal(): void {
-    this.showModal = false;
+  close() {
+    this.modalService.close();
   }
 }

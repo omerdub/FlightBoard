@@ -1,3 +1,9 @@
 <div>
-    <app-table [table]="dataTable" [onClick]="clickOnFlight"></app-table>
+    <div *ngIf="dataTable.data.length === 0">
+        <h2>No flights found</h2>
+    </div>
+    <div class="table" *ngIf="dataTable.data.length > 0">
+        <app-sort [(data)]="dataTable"></app-sort>
+        <app-table style="height: 100%;" [table]="dataTable" [onClick]="clickOnFlight"></app-table>
+    </div>
 </div>
